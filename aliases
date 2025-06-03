@@ -1,0 +1,39 @@
+# Set personal aliases, overriding those provided by oh-my-zsh libs,
+# plugins, and themes. Aliases can be placed here, though oh-my-zsh
+# users are encouraged to define aliases within the ZSH_CUSTOM folder.
+# For a full list of active aliases, run `alias`.
+#
+# Example aliases
+# alias zshconfig="mate ~/.zshrc"
+# alias ohmyzsh="mate ~/.oh-my-zsh"
+
+# Git switch to previous branch
+alias g-="git switch -"
+alias gs="git switch"
+alias gsc="git switch -c"
+
+# Git find branch- git list branches, reverse list, display in fzf, select just the branch name, supply to git switch
+alias gfb='git switch $(git lb | tac | fzf | cut -d" " -f 2)'
+
+alias grf='git revise $(git log --oneline origin/main..@ | fzf --reverse | cut -d" " -f 1 )'
+
+alias gsm="git switch main"
+alias gpo="git pull origin"
+
+function urlencode {
+  echo $(ruby -e "require 'erb';include ERB::Util; puts u('$1');")
+}
+
+function resetifheadiswip {
+  if git log -1 --format=%s | grep -q -e '^WIP$'; then
+    git reset @~
+  else
+    echo "Not WIP commit"
+  fi
+}
+
+alias ct="resetifheadiswip"
+alias wip="git add . && git commit -m 'WIP'"
+# Get latest branches and switch to the selected branch
+alias gfb="git lb | tac | fzf | cut -d\" \" -f 2 | xargs -I{} git switch {}"
+alias gri="git rebase origin/main -i"
