@@ -1,0 +1,16 @@
+[alias]
+        st = status -s
+        fp = fetch -p
+        ap = add --patch
+        l = log --pretty=oneline --graph --decorate --all
+        sl = log --oneline
+        b = branch
+        amd = "!sh -c 'if [ -z \"$(git diff --staged)\" ]; then echo \"NO FILES STAGED DOOFUS\"; else git commit --amend --no-edit; fi'"
+        sm = switch main
+        lb = for-each-ref --sort=committerdate refs/heads/ --format='%(committerdate:short) %(refname:short)'
+        ls = log --pretty='%C(auto,yellow)%h%C(auto,magenta)% G? %C(auto,blue)%>(12,trunc)%ad %C(auto,green)%<(7,trunc)%aN%C(auto,reset)%s%C(auto,red)% gD' --date=short
+        wip = !git add . && git commit -m "WIP"
+        rbm = !git fetch origin main && git rebase origin/main
+        ec = !${EDITOR} ~/.gitconfig
+        ee = !${EDITOR} .git/info/exclude
+        rfzf = !git revise $(git log --oneline main..@ | fzf --reverse | cut -d" " -f 1 )
