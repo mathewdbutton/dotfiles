@@ -1,0 +1,16 @@
+# Sourced by both fish and zsh, so keep every line to a plain
+# `alias name="..."` — no functions, no $(...). Anything bigger belongs in
+# git/config as a git alias, or in bin/ as a script.
+
+alias g-="git switch -"
+alias gs="git switch"
+alias gsc="git switch -c"
+alias gsm="git switch main"
+alias gpo="git pull origin"
+alias gri="git rebase origin/main -i"
+
+alias wip="git wip"
+alias ct="git ct"
+
+# Pick from recently-committed branches and switch to it
+alias gfb="git lb | fzf | cut -d\" \" -f 2 | xargs -I{} git switch {}"

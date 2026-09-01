@@ -1,0 +1,30 @@
+#!/bin/sh
+# Symlink dotfiles into place. Safe to re-run.
+set -e
+cd "$(dirname "$0")"
+
+link() {
+	mkdir -p "$(dirname "$2")"
+	ln -sfn "$PWD/$1" "$2"
+	echo "$2 -> $1"
+}
+
+link git/config ~/.config/git/config
+link tmux/tmux.conf ~/.config/tmux/tmux.conf
+link bin/urlencode ~/.local/bin/urlencode
+
+# shell/aliases is valid fish as well as zsh, so fish can load it straight
+# from conf.d — no wrapper needed.
+link shell/aliases ~/.config/fish/conf.d/dotfiles-aliases.fish
+
+# Identity lives in ~/.gitconfig, per machine, never in this repo. Create it
+# first: while it's missing, `git config --global` writes into the symlink
+# above instead, i.e. into this repo.
+[ -f "$HOME/.gitconfig" ] || touch "$HOME/.gitconfig"
+git config --global user.name "Mathew Button"
+
+if ! git config --global --get user.email >/dev/null; then
+	printf "git email for this machine: "
+	read -r email
+	[ -n "$email" ] && git config --global user.email "$email"
+fi

@@ -1,0 +1,6 @@
+#!/usr/bin/env ruby
+# URL-encode each argument, or stdin if there are none.
+require "erb"
+
+inputs = ARGV.empty? ? [$stdin.read.chomp] : ARGV
+inputs.each { |s| puts ERB::Util.url_encode(s) }
