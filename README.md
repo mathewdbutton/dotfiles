@@ -7,10 +7,14 @@
 Symlinks everything into place and asks for this machine's git email.
 Safe to re-run.
 
+`shell/aliases` is one file that is valid fish *and* zsh; `install` checks
+`$SHELL` and wires it up whichever way that shell wants. Any other shell is
+skipped with a warning, and everything else still installs.
+
 | | |
 | --- | --- |
 | `git/config` | git aliases → `~/.config/git/config` |
-| `shell/aliases` | shell aliases → fish's `conf.d` (the file is valid zsh too) |
+| `shell/aliases` | shell aliases → wherever `$SHELL` wants them: fish's `conf.d`, or `~/.config/zsh/` plus a `source` line in `~/.zshrc` |
 | `tmux/tmux.conf` | → `~/.config/tmux/tmux.conf` |
 | `bin/` | scripts → `~/.local/bin` |
 
@@ -29,6 +33,6 @@ breaks if one is missing; only the alias that needs it does.
 | `git-revise` | `git rfzf` |
 | `ruby` | `bin/urlencode` (ships with macOS; a package on Linux) |
 | `tmux` | `tmux/tmux.conf` |
-| `fish` and/or `zsh` | `shell/aliases` |
+| `fish` or `zsh` | `shell/aliases` (whichever is `$SHELL`) |
 
 Everything else these use is POSIX, so they behave the same on macOS and Linux.

@@ -13,9 +13,34 @@ link git/config ~/.config/git/config
 link tmux/tmux.conf ~/.config/tmux/tmux.conf
 link bin/urlencode ~/.local/bin/urlencode
 
-# shell/aliases is valid fish as well as zsh, so fish can load it straight
-# from conf.d — no wrapper needed.
-link shell/aliases ~/.config/fish/conf.d/dotfiles-aliases.fish
+# shell/aliases is valid fish as well as zsh, so both get the same file — only
+# the way each shell picks it up differs. Install for this machine's login
+# shell; SHELL is what the account is set to, not whatever is running this
+# script, so it stays right when ./install is run from some other shell.
+case "${SHELL##*/}" in
+fish)
+	# fish loads conf.d itself, so the symlink is the whole install.
+	link shell/aliases ~/.config/fish/conf.d/dotfiles-aliases.fish
+	;;
+zsh)
+	# zsh has no conf.d, so ~/.zshrc has to source it. Append once; a
+	# re-run finds the line already there.
+	link shell/aliases ~/.config/zsh/dotfiles-aliases.zsh
+	zshrc="$HOME/.zshrc"
+	[ -f "$zshrc" ] || touch "$zshrc"
+	if grep -q "dotfiles-aliases.zsh" "$zshrc"; then
+		echo "$zshrc already sources dotfiles-aliases.zsh"
+	else
+		# Guarded, so the line is harmless on a machine where this
+		# repo isn't checked out.
+		printf '\n# dotfiles\n[ -f ~/.config/zsh/dotfiles-aliases.zsh ] && . ~/.config/zsh/dotfiles-aliases.zsh\n' >>"$zshrc"
+		echo "$zshrc: added source line"
+	fi
+	;;
+*)
+	echo "\$SHELL is ${SHELL:-unset}, not fish or zsh; skipped shell/aliases" >&2
+	;;
+esac
 
 # Identity lives in ~/.gitconfig, per machine, never in this repo. Create it
 # first: while it's missing, `git config --global` writes into the symlink
