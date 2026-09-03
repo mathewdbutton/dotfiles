@@ -8,8 +8,7 @@ Symlinks everything into place and asks for this machine's git email.
 Safe to re-run.
 
 `shell/aliases` is one file that is valid fish *and* zsh; `install` checks
-`$SHELL` and wires it up whichever way that shell wants. Any other shell is
-skipped with a warning, and everything else still installs.
+`$SHELL` and wires it up whichever way that shell wants.
 
 | | |
 | --- | --- |
