@@ -1,0 +1,4 @@
+# With neither `bindkey -e` nor `bindkey -v` set, zsh picks its keymap from
+# $EDITOR/$VISUAL: anything matching *vi* -- nvim included -- selects vi insert
+# mode, where ^A, ^E, ^K and ^R do nothing. Choose explicitly instead.
+bindkey -e

@@ -8,12 +8,14 @@ Symlinks everything into place and asks for this machine's git email.
 Safe to re-run.
 
 `shell/aliases` is one file that is valid fish *and* zsh; `install` checks
-`$SHELL` and wires it up whichever way that shell wants.
+`$SHELL` and wires it up whichever way that shell wants. `zsh/` is zsh-only,
+and skipped under fish.
 
 | | |
 | --- | --- |
 | `git/config` | git aliases → `~/.config/git/config` |
 | `shell/aliases` | shell aliases → wherever `$SHELL` wants them: fish's `conf.d`, or `~/.config/zsh/` plus a `source` line in `~/.zshrc` |
+| `zsh/keybindings` | emacs line editing → `~/.config/zsh/`, sourced from `~/.zshrc` |
 | `tmux/tmux.conf` | → `~/.config/tmux/tmux.conf` |
 | `bin/` | scripts → `~/.local/bin` |
 
