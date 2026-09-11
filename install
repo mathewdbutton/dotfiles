@@ -19,6 +19,14 @@ link git/config ~/.config/git/config
 link tmux/tmux.conf ~/.config/tmux/tmux.conf
 link bin/urlencode ~/.local/bin/urlencode
 
+# Hammerspoon is macOS-only. Link the files, not the directory, so Spoons it
+# installs into ~/.hammerspoon stay on the machine and out of this repo.
+if [ "$(uname)" = Darwin ]; then
+	for lua in hammerspoon/*.lua; do
+		link "$lua" "$HOME/.hammerspoon/${lua#hammerspoon/}"
+	done
+fi
+
 # Config for whichever shell this account uses. shell/aliases is one file,
 # valid in both fish and zsh; they just load it from different places.
 # Keybindings are zsh-only -- fish already binds ^A and friends.
@@ -29,8 +37,10 @@ fish)
 zsh)
 	link shell/aliases ~/.config/zsh/dotfiles-aliases.zsh
 	link zsh/keybindings ~/.config/zsh/dotfiles-keybindings.zsh
+	link zsh/history ~/.config/zsh/dotfiles-history.zsh
 	source_from_zshrc dotfiles-aliases.zsh
 	source_from_zshrc dotfiles-keybindings.zsh
+	source_from_zshrc dotfiles-history.zsh
 	;;
 *)
 	echo "\$SHELL is ${SHELL:-unset}, not fish or zsh; skipped shell config" >&2

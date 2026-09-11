@@ -2,3 +2,14 @@
 # $EDITOR/$VISUAL: anything matching *vi* -- nvim included -- selects vi insert
 # mode, where ^A, ^E, ^K and ^R do nothing. Choose explicitly instead.
 bindkey -e
+
+# Up/down search history for lines starting with what's already typed, rather
+# than walking it unfiltered. Terminals send ^[OA in application cursor mode
+# and ^[[A otherwise, so bind both.
+autoload -Uz up-line-or-beginning-search down-line-or-beginning-search
+zle -N up-line-or-beginning-search
+zle -N down-line-or-beginning-search
+bindkey '^[[A' up-line-or-beginning-search
+bindkey '^[OA' up-line-or-beginning-search
+bindkey '^[[B' down-line-or-beginning-search
+bindkey '^[OB' down-line-or-beginning-search

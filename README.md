@@ -15,9 +15,11 @@ and skipped under fish.
 | --- | --- |
 | `git/config` | git aliases → `~/.config/git/config` |
 | `shell/aliases` | shell aliases → wherever `$SHELL` wants them: fish's `conf.d`, or `~/.config/zsh/` plus a `source` line in `~/.zshrc` |
-| `zsh/keybindings` | emacs line editing → `~/.config/zsh/`, sourced from `~/.zshrc` |
+| `zsh/keybindings` | emacs line editing, prefix history search → `~/.config/zsh/`, sourced from `~/.zshrc` |
+| `zsh/history` | a history worth searching → `~/.config/zsh/`, sourced from `~/.zshrc` |
 | `tmux/tmux.conf` | → `~/.config/tmux/tmux.conf` |
 | `bin/` | scripts → `~/.local/bin` |
+| `hammerspoon/` | audio output toggle on Shift+PageUp → `~/.hammerspoon/` (macOS only) |
 
 Identity and anything machine-specific lives in `~/.gitconfig`, never in this
 repo. Git reads that and `~/.config/git/config`, merging the two.
@@ -35,5 +37,7 @@ breaks if one is missing; only the alias that needs it does.
 | `ruby` | `bin/urlencode` (ships with macOS; a package on Linux) |
 | `tmux` | `tmux/tmux.conf` |
 | `fish` or `zsh` | `shell/aliases` (whichever is `$SHELL`) |
+| Hammerspoon | `hammerspoon/` — macOS only, `brew install --cask hammerspoon` |
 
-Everything else these use is POSIX, so they behave the same on macOS and Linux.
+Everything else these use is POSIX, so they behave the same on macOS and Linux;
+`install` skips `hammerspoon/` anywhere that isn't macOS.

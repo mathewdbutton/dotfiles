@@ -1,0 +1,29 @@
+# macOS sets HISTFILE in /etc/zshrc but most Linux distros don't, and zsh with
+# no HISTFILE keeps history only for the life of the shell. Set it here so both
+# behave the same.
+HISTFILE="${ZDOTDIR:-$HOME}/.zsh_history"
+HISTSIZE=50000
+SAVEHIST=50000
+
+# Write each line as it's entered. The default only writes when the shell
+# exits, so whichever tab closes last overwrites what the others recorded.
+setopt INC_APPEND_HISTORY
+
+# Record start time and duration, for `history -i` / `history -D`.
+setopt EXTENDED_HISTORY
+
+# Keep the list worth searching: no immediate repeats, no whitespace-only
+# variants, and drop duplicates first when trimming to SAVEHIST.
+setopt HIST_IGNORE_DUPS
+setopt HIST_REDUCE_BLANKS
+setopt HIST_EXPIRE_DUPS_FIRST
+
+# Skip repeats when searching, so the arrow keys and ^R keep moving.
+setopt HIST_FIND_NO_DUPS
+
+# A leading space keeps a line out of history -- room for a one-off command
+# carrying a token or password.
+setopt HIST_IGNORE_SPACE
+
+# Expansions like !! land on the line for review instead of running blind.
+setopt HIST_VERIFY
