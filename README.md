@@ -19,7 +19,7 @@ and skipped under fish.
 | `zsh/history` | a history worth searching → `~/.config/zsh/`, sourced from `~/.zshrc` |
 | `tmux/tmux.conf` | → `~/.config/tmux/tmux.conf` |
 | `bin/` | scripts → `~/.local/bin` |
-| `hammerspoon/` | audio output toggle on Shift+PageUp → `~/.hammerspoon/` (macOS only) |
+| `hammerspoon/` | audio output toggle on Shift+PageUp, emoji picker on double-tap Shift, config in Zed on Cmd+Alt+Ctrl+H → `~/.hammerspoon/` (macOS only) |
 
 Identity and anything machine-specific lives in `~/.gitconfig`, never in this
 repo. Git reads that and `~/.config/git/config`, merging the two.
